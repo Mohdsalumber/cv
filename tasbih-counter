@@ -1,0 +1,301 @@
+<html>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VRJRKRC67"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-4VRJRKRC67');
+	</script>
+	<title>Tasbeeh - Ya Husain</title>
+	<meta name="author" content="Taher Quresh Ghadiali">
+	<meta name="description" content="Focus on Tasbeeh / Matam and leave counting to the app">
+	<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0">
+	<script src="NoSleep.min.js"></script>
+	<script>
+		var noSleep;
+		var noSleepState = 0;
+		function enableNoSleep() {
+			if (!noSleepState) {
+				noSleep && noSleep.enable();
+				noSleepState = 1;
+			}
+		}
+		function disableNoSleep() {
+			if (noSleepState) {
+				noSleep && noSleep.disable();
+				noSleepState = 0;
+			}
+		}
+		noSleep = new NoSleep();
+	</script>
+	<script>
+		function setItem(key, value) {
+			try {
+				localStorage.setItem(key, value);
+			} catch (e) {}
+		}
+		function getItem(key) {
+			try {
+				return localStorage.getItem(key);
+			} catch (e) {}
+		}
+	</script>
+	<style>
+		body {
+			--border-color: #aaa;
+			user-select: none;
+		}
+		input:focus {
+			outline: none;
+		}
+		button:focus {
+			outline: none;
+			background-color: rgb(187, 187, 187);
+		}
+		div.wrapper {
+			margin: 5px 0;
+			display: flex;
+			align-items: center;
+		}
+		.wrapper1 button {
+			margin: 0 1px;
+		}
+		button {
+			display: inline-block;
+			width: 75px;
+			background-color: rgb(239, 239, 239);
+			border: 1px solid var(--border-color);
+		}
+		#resetForm {
+			display: inline-block;
+			margin: 0;
+			border: 1px solid var(--border-color);
+			border-radius: 5px;
+		}
+		#resetForm button, #resetForm input {
+			border: none;
+		}
+		#resetForm button {
+			border-radius: 5px 0 0 5px; 
+		}
+		input {
+			width: 60px;
+		}
+		button, input {
+			border-radius: 5px;
+			height: 50px;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+		}
+		.hidden {
+			display: none;
+		}
+		#footer {
+			width: 100%;
+			text-align: center;
+			font-size: 10px;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			right: 0;
+		}
+		#outer {
+			height: 100%;
+			max-height: 100%;
+		}
+		#count {
+			font-size: 40vmin;
+			flex-grow: 1;
+			width: 100%;
+			text-align: center;
+		}
+		#body {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		#title {
+			font-size: 10vh;
+			text-align: center;
+		}
+		#speedInputWrapper {
+			display: flex;
+			align-items: center;
+			margin-right: 1px;
+			border:  1px solid var(--border-color);
+			border-radius: 5px;
+		}
+		#interval {
+			border: none;
+		}
+		#speedLabel {
+			padding: 3px;
+			text-align: right;
+		}
+		#body.collapsed #dashboard {
+			display: none;
+		}
+		#body.collapsed .collapse {
+			display: none;
+		}
+		#body.collapsed .expand {
+			display: block;
+		}
+		.expand {
+			display: none;
+		}
+		.toggleOptions {
+			margin: 10px 0 0 0;
+			padding: 10px;
+			opacity: 50%;
+			cursor: pointer;
+		}
+		#toggleStart {
+			flex-grow: 1;
+		}
+		#dashboard {
+			max-width: 100%;
+		}
+		@media screen and (orientation:landscape) and (max-width:767px) and (min-width:566px) {
+			#dashboard {
+				display: flex;
+				width: 100%;
+			}
+			.toggleOptions {
+				padding: 0;
+			}
+			.wrapper {
+				flex-grow: 1;
+				flex-basis: 0;
+			}
+			.wrapper2 {
+				order: 1;
+				padding-right: 5px;
+			}
+			.wrapper1 {
+				order: 2;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="outer">
+		<div id="body">
+			<div id="title">Ya Husain</div>
+			<div id="dashboard">
+				<div class="wrapper wrapper1">
+					<div id="speedInputWrapper">
+						<div id="speedLabel">Tasbeeh/minute:</div>
+						<input min="1" type="number" id="interval" value="100" oninput="speedChanged(this.value)">
+					</div>
+					<button onclick="slower()" id="slowerBtn">Slower</button>
+					<button onclick="faster()" id="fasterBtn">Faster</button>
+				</div>
+				<div class="wrapper wrapper2">
+					<div id="toggleStart">
+						<button onclick="start()" id="startBtn" class="">Start</button>
+						<button onclick="pause()" id="pauseBtn" class="hidden">Pause</button>
+					</div>
+					<form action="" onsubmit="return resetSubmit()" id="resetForm">
+						<button type="submit">Reset to</button>
+						<input type="number" min="0" id="resetTo" value="0">
+					</form>
+				</div>
+			</div>
+			<div class="toggleOptions" onclick="toggleOptions()">
+				<div class="collapse">- Hide options</div>
+				<div class="expand">+ Show options</div>
+			</div>
+			<div id="count" onclick="manualCount()">400</div>
+		</div>
+		<div id="footer">iltimas ud dua - M. Taher Quresh Ghadiali</div>
+	</div>
+
+<script>
+	let count = 0;
+	let status = 0;
+	let timeoutHandle;
+	function setStatus(value){
+		status = value;
+		const startBtn = document.getElementById("startBtn");
+		const pauseBtn = document.getElementById("pauseBtn");
+		pauseBtn.classList.toggle('hidden', !status);
+		startBtn.classList.toggle('hidden', status);
+	}
+	function speedChanged(value) {
+		if (status) {
+			next();
+		}
+		setItem("speed", value);
+	}
+	function slower() {
+		setSpeed(Math.max(20, getSpeed()-10));
+	}
+	function faster() {
+		setSpeed(getSpeed()+10);
+	}
+	function setSpeed(value) {
+		document.getElementById("interval").value = value;
+		speedChanged(value);
+	}
+	function getSpeed() {
+		return Number(document.getElementById("interval").value) || 100;
+	}
+	function start() {
+		setStatus(1);
+		next();
+		document.getElementById("pauseBtn").focus();		
+		enableNoSleep();
+	}
+	function next() {
+		const speed = getSpeed();
+		const interval = 60000 / speed;
+		if (timeoutHandle) {
+			clearTimeout(timeoutHandle)
+		}
+		timeoutHandle = setTimeout(counter, interval);
+	}
+	function counter() {
+		if (status) {
+			setCount(1 + count);
+			next();
+		}
+	}
+	function pause() {
+		setStatus(0);
+		document.getElementById("startBtn").focus();
+		disableNoSleep();
+	}
+	function setCount(value) {
+		count  = +value;
+		document.getElementById("count").textContent = count;
+		setItem('count', count);
+	}
+	function resetCount() {
+		pause();
+		const node = document.getElementById("resetTo");
+		const resetValue = Number(node.value) || 0;
+		node.value = 0;
+		setCount(resetValue);
+	}
+	function resetSubmit() {
+		resetCount();
+		return false;
+	}
+	function manualCount() {
+		if (status === 0) {
+			setCount(1 + count);
+		}
+	}
+	function toggleOptions() {
+		const body = document.getElementById("body");
+		body.classList.toggle("collapsed");
+	}
+	setSpeed(getItem("speed") || 100);
+	setCount(getItem('count') || 0);
+</script>
+</body></html>
